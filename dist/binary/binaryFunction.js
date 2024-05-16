@@ -34,8 +34,8 @@ function onlynumber(arr) {
   return output;
 }
 
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min));
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 randomNum.addEventListener('click', () => {

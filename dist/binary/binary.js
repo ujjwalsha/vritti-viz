@@ -5,7 +5,7 @@ const backBtn = document.querySelector('.backbtn');
 const homeBtn = document.querySelector('.home');
 const inputField = document.querySelectorAll('.inputField');
 const lowerNum = document.querySelector('.lower');
-const tragetNum = document.querySelector('.target');
+let targetNum = document.querySelector('.target');
 const randomDisplay = document.querySelector('.randomDisplay');
 const operation = document.querySelector('.operation');
 const reload = document.querySelector('.fa-rotate-right');
@@ -56,15 +56,8 @@ inputField.forEach(e => {
 //generating number between lower and upper
 var first;
 var second;
-var target;
 
-lowerNum.onkeyup = () => {
-  first = lowerNum.value;
-};
-
-tragetNum.onkeyup = () => {
-  target = tragetNum.value;
-};
+let target = targetNum.value;
 
 var keyCount = 0;
 var num;
@@ -92,27 +85,35 @@ function sleep(ms) {
 
 goBtn.addEventListener('click', () => {
   blockContainer.innerHTML = '';
+  array = [];
   createDiv();
 });
 
 let array = [];
 let arrayElements = [];
 
-function generateSortedArray(lowerNum, upperNum) {}
+function generatingArray() {
+  let lower = lowerNum.value;
+  let upper = upperNum.value;
+
+  console.log('lower and upper ', lower, upper);
+
+  // let value = Number();
+  for (let i = lower; i <= upper; i++) {
+    let value = randomNumber(lower, upper);
+    array.push(value);
+  }
+
+  //sorted array
+  array.sort((a, b) => a - b);
+  console.log(array);
+}
 
 async function createDiv() {
-  // generateSortedArray(lowerNum.value, upperNum.value);
-  array = [];
-  for (let i = lowerNum.value; i <= upperNum.value; i++) {
-    array[i] = random(lowerNum.value, upperNum.value);
-  }
-  array.sort((a, b) => a - b); // Sort the array
-  console.log(array);
-
-  for (let i = 0; i < array.length - 1; i++) {
+  generatingArray();
+  for (let i = 0; i < array.length; i++) {
     const element = document.createElement('div');
     element.textContent = array[i];
-
     element.style.border = '2px solid blanchedalmond';
     element.style.width = '2.8em';
     element.style.padding = '15px';
@@ -126,10 +127,15 @@ async function createDiv() {
 
     await sleep(50);
   }
+
+  console.log(blockContainer.childNodes);
 }
 
 binarySearch.addEventListener('click', () => {
+  // console.log(target);
+  let target = targetNum.value;
   console.log(target);
+
   searching(0, array.length - 1, target);
 });
 
@@ -144,13 +150,20 @@ async function searching(left, right, target) {
   let found = false;
 
   console.log('right', right);
+  console.log(target);
   while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
-    const midElement = array[mid];
-    let n = arrayElements.length - 1;
+    let mid = Math.floor((left + right) / 2);
+
+    // const mid = Math.floor((left + right) / 2);
+    let midElement = array[mid];
+    let temp;
+    let tempOne;
+    // const midElement = array[mid];
+    console.log('index and value ', mid, midElement);
+    // let n = arrayElements.length - 1;
     const midElementDiv = arrayElements[mid];
     const firstElement = arrayElements[left];
-    const lastElement = arrayElements[n];
+    const lastElement = arrayElements[right];
     midElementDiv.classList.add('mid');
     firstElement.classList.add('low');
     lastElement.classList.add('high');
@@ -162,14 +175,18 @@ async function searching(left, right, target) {
       midElementDiv.classList.add('found');
       found = true;
       break;
-    } else if (midElementDiv.innerHTML < target) {
+    } else if (target > midElementDiv.innerHTML) {
+      temp = left;
       left = mid + 1;
+
       removeElementsBefore(left, right);
-      console.log(arrayElements);
-      // previousEnd++;
+      // removeElements(temp, left - 1);
     } else {
+      tempOne = right;
       right = mid - 1;
       removeElementsAfter(right, left);
+
+      // removeElements(right + 1, tempOne);
     }
     midElementDiv.classList.remove('mid');
     await sleep(500); // Delay for animation

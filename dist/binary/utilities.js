@@ -56,3 +56,9 @@ function removeElementsAfter(index, left) {
   }
   left += arrayElements.length - index;
 }
+
+function removeElements(left, right) {
+  for (let i = left; i <= right; i++) {
+    arrayElements[i].remove();
+  }
+}
