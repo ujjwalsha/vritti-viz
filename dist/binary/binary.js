@@ -29,6 +29,7 @@ refresh.addEventListener('click', () => {
   });
 
   blockContainer.innerHTML = '';
+  window.location.reload();
   operation.innerHTML = '';
 
   document.querySelector('.time-complexity-binary').innerHTML = '';
@@ -93,8 +94,8 @@ let array = [];
 let arrayElements = [];
 
 function generatingArray() {
-  let lower = lowerNum.value;
-  let upper = upperNum.value;
+  let lower = parseInt(lowerNum.value);
+  let upper = parseInt(upperNum.value);
 
   console.log('lower and upper ', lower, upper);
 
@@ -132,9 +133,7 @@ async function createDiv() {
 }
 
 binarySearch.addEventListener('click', () => {
-  // console.log(target);
-  let target = targetNum.value;
-  console.log(target);
+  let target = parseInt(targetNum.value);
 
   searching(0, array.length - 1, target);
 });
@@ -153,15 +152,12 @@ async function searching(left, right, target) {
   console.log(target);
   while (left <= right) {
     let mid = Math.floor((left + right) / 2);
-
-    // const mid = Math.floor((left + right) / 2);
     let midElement = array[mid];
     let temp;
     let tempOne;
-    // const midElement = array[mid];
     console.log('index and value ', mid, midElement);
-    // let n = arrayElements.length - 1;
     const midElementDiv = arrayElements[mid];
+    const midValue = parseInt(midElementDiv.innerHTML);
     const firstElement = arrayElements[left];
     const lastElement = arrayElements[right];
     midElementDiv.classList.add('mid');
@@ -170,12 +166,12 @@ async function searching(left, right, target) {
 
     await sleep(1000); // Delay for animation
 
-    if (midElementDiv.innerHTML === target) {
+    if (midValue === target) {
       operation.innerHTML = `${target}` + ' found at' + ` ${mid}`;
       midElementDiv.classList.add('found');
       found = true;
       break;
-    } else if (target > midElementDiv.innerHTML) {
+    } else if (target > midValue) {
       temp = left;
       left = mid + 1;
 
@@ -184,8 +180,10 @@ async function searching(left, right, target) {
     } else {
       tempOne = right;
       right = mid - 1;
+      //created by ujjwal kumar
       removeElementsAfter(right, left);
 
+      //created by abhishek singh
       // removeElements(right + 1, tempOne);
     }
     midElementDiv.classList.remove('mid');
@@ -193,12 +191,13 @@ async function searching(left, right, target) {
 
     if (!found) {
       operation.innerHTML = `${target} ` + 'not found';
+
       if (midElement < target) {
         operation.innerHTML = `${midElement} < ` + `${target}`;
-      } else {
+      } else if (midElement > target) {
         operation.innerHTML = `${midElement} > ` + `${target}`;
       }
-      await sleep(100);
+      await sleep(1000);
     }
   }
 }
