@@ -81,6 +81,7 @@ linearSearch.addEventListener('click', () => {
   console.log('hello there');
   welcomeDisplay.classList.add('hidden');
   let item = userTarget.value;
+
   performLinearSearch(childOne, item);
   performRandomLinearSearch(target);
 });
@@ -144,7 +145,6 @@ async function performLinearSearch(child, target) {
     }
 
     await sleep(900);
-    // child[i].classList.remove('high');
     child[i].classList.remove('low');
   }
 }

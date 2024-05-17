@@ -30,6 +30,7 @@ refresh.addEventListener('click', () => {
 
   blockContainer.innerHTML = '';
   window.location.reload();
+
   operation.innerHTML = '';
 
   document.querySelector('.time-complexity-binary').innerHTML = '';
@@ -134,7 +135,7 @@ async function createDiv() {
 
 binarySearch.addEventListener('click', () => {
   let target = parseInt(targetNum.value);
-
+  disabledLinear();
   searching(0, array.length - 1, target);
 });
 

@@ -688,10 +688,6 @@ video {
   width: 75%;
 }
 
-.w-3\/5 {
-  width: 60%;
-}
-
 .w-40 {
   width: 10rem;
 }
@@ -765,6 +761,10 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.gap-1 {
+  gap: 0.25rem;
 }
 
 .gap-10 {

@@ -57,8 +57,13 @@ function removeElementsAfter(index, left) {
   left += arrayElements.length - index;
 }
 
+//created by abhishesk singh
 function removeElements(left, right) {
   for (let i = left; i <= right; i++) {
     arrayElements[i].remove();
   }
+}
+
+function disabledLinear() {
+  linearSearch.disabled = false;
 }
