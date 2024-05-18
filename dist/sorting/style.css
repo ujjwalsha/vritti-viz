@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
   padding: 0;
@@ -15,7 +15,7 @@
   /* position: relative; */
   /* border: 1px solid coral; */
   background-color: var(--background-color);
-  font-family: "poppins", sans-serif;
+  font-family: 'poppins', sans-serif;
   overflow-x: hidden;
   overflow-y: hidden;
   /* border: 1px solid coral; */

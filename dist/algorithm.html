@@ -17,7 +17,7 @@
   <body class="wrapper animation bg-vrittiBg text-vrittiText">
     <!-- global container -->
     <div
-      class="flex p-6 m-5 font-bold lg:m-10 lg:p-4 cursor-pointer rounded-md text-2xl backdrop-blur-sm justify-between"
+      class="flex sm:fixed sm:top-5 sm:z-10 sm:w-11/12 sm:border sm:p-5 sm:left-5 font-bold lg:m-auto lg:left-16 lg:p-4 cursor-pointer rounded-md text-2xl backdrop-blur-md justify-between gap-10"
     >
       <div
         class="backbutton p-2 w-10 flex items-center bg-vrittiText text-vrittiBg justify-center px-1 rounded-full"
@@ -35,14 +35,14 @@
 
     <!-- algorithm cards-->
     <div
-      class="flex items-center justify-center h-vrittiH md:mt-20 lg:mt-52 sm:mt-56"
+      class="md:mt-72 sm:mt-40 lg:mt-40 flex items-center justify-center h-vrittiH"
     >
       <div
-        class="grid cursor-pointer grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 gap-3 place-content-center m-5 items-center justify-center"
+        class="grid sm:mt-96 sm:translate-y-36 lg:translate-y-0 cursor-pointer grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 gap-3 place-content-center m-5 items-center justify-center"
       >
         <!-- sorting -->
         <div
-          class="opener effect w-vrittiw border backdrop-blur-vritti rounded-md border-dotted p-4"
+          class="opener sm:w-fit lg:w-vrittiw effect w-vrittiw border backdrop-blur-vritti rounded-md border-dotted p-4"
         >
           <video class="sorting" src="demo.mkv" autoplay muted loop></video>
 
@@ -65,7 +65,7 @@
 
         <!-- searching -->
         <div
-          class="opener effect w-vrittiw border backdrop-blur-vritti rounded-md border-dotted p-4"
+          class="opener sm:w-fit effect lg:w-vrittiw border backdrop-blur-vritti rounded-md border-dotted p-4"
         >
           <!-- <video src="demo.mkv" autoplay muted loop></video> -->
           <img
@@ -93,7 +93,7 @@
 
         <!-- analyzer -->
         <div
-          class="Analiyzer opener effect w-vrittiw border backdrop-blur-vritti rounded-md border-dotted p-4"
+          class="Analiyzer sm:w-fit opener effect lg:w-vrittiw border backdrop-blur-vritti rounded-md border-dotted p-4"
         >
           <video src="demo.mkv" autoplay muted loop></video>
           <div
@@ -115,7 +115,7 @@
 
         <!-- prime number visualizer -->
         <div
-          class="Analiyzer opener effect w-vrittiw border backdrop-blur-vritti rounded-md border-dotted p-4"
+          class="Analiyzer sm:w-fit opener effect lg:w-vrittiw border backdrop-blur-vritti rounded-md border-dotted p-4"
         >
           <img src="assets/prime.png" class="" alt="prime number" />
           <div

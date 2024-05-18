@@ -29,9 +29,8 @@ refresh.addEventListener('click', () => {
   });
 
   blockContainer.innerHTML = '';
-  window.location.reload();
 
-  operation.innerHTML = '';
+  operation.innerHTML = 'Operational performed';
 
   document.querySelector('.time-complexity-binary').innerHTML = '';
 });

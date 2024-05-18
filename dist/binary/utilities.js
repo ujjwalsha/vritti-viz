@@ -43,12 +43,21 @@ function targetFound(index, child) {
   child[index].classList.add('found');
 }
 
+function resetThevalue()
+{
+  
+}
+
+
+
+
 function removeElementsBefore(index, right) {
   for (let i = 0; i < index; i++) {
     arrayElements[i].remove();
   }
   right -= index;
 }
+
 // Function to remove elements after the given index
 function removeElementsAfter(index, left) {
   for (let i = arrayElements.length - 1; i > index; i--) {
@@ -57,7 +66,7 @@ function removeElementsAfter(index, left) {
   left += arrayElements.length - index;
 }
 
-//created by abhishesk singh
+//contributed  by abhishesk singh
 function removeElements(left, right) {
   for (let i = left; i <= right; i++) {
     arrayElements[i].remove();

@@ -101,7 +101,7 @@
       class="w-11/12 randomDisplay m-auto h-3/6 gap-5 mt-10  text-center flex flex-col justify-center"
     >
       <!-- <p class="mt-2">this is</p> -->
-      <div class="inputcontainer flex gap-10 justify-center">
+      <div class="inputcontainer md:grid md:grid-cols-3 md:gap-5 lg:flex lg:gap-5  justify-center">
         <input
           type="number"
           placeholder="lower number"
@@ -120,7 +120,17 @@
           class="target inputField bg-gray-700 w-40 h-14 rounded-md text-xl p-1 text-vrittiText"
         />
         <button class="searching rounded-md cursor-pointer p-3 hover:bg-gray-600 bg-slate-700 ">Go</button>
-        
+        <span id="size" class="flex justify-center items-center gap-5 text-xl font-semibold">Speed
+        <input
+          id="input"
+          type="range"
+          min="10"
+          max="50"
+          step="1"
+          value="0" class="w-40"
+        />
+        <div class="result">50</div>
+      </span>
       </div>
       <div class="text-center mt-5 flex  flex-col items-center gap-5 justify-center">
         <div
