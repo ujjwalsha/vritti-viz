@@ -43,14 +43,6 @@ function targetFound(index, child) {
   child[index].classList.add('found');
 }
 
-function resetThevalue()
-{
-  
-}
-
-
-
-
 function removeElementsBefore(index, right) {
   for (let i = 0; i < index; i++) {
     arrayElements[i].remove();

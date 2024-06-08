@@ -143,7 +143,6 @@ async function performLinearSearch(child, target) {
         'Time Complexity:- O(n)';
       break;
     }
-
     await sleep(900);
     child[i].classList.remove('low');
   }

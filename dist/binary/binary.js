@@ -13,6 +13,26 @@ const binarySearch = document.querySelector('.binarysearch');
 const refresh = document.querySelector('.reload');
 const goBtn = document.querySelector('.searching');
 
+const speedController = document.querySelector('#input');
+const showData = document.querySelector('.result');
+
+let delay = 1000;
+
+function waitforme(millisec) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('');
+    }, millisec);
+  });
+}
+
+speedController.addEventListener('input', () => {
+  showData.textContent = speedController.value;
+  delay = 500 - parseInt(speedController.value);
+});
+
+console.log(delay);
+
 backBtn.addEventListener('click', () => {
   window.history.back();
   console.log('hi');
@@ -29,9 +49,7 @@ refresh.addEventListener('click', () => {
   });
 
   blockContainer.innerHTML = '';
-
   operation.innerHTML = 'Operational performed';
-
   document.querySelector('.time-complexity-binary').innerHTML = '';
 });
 
@@ -58,7 +76,7 @@ inputField.forEach(e => {
 var first;
 var second;
 
-let target = targetNum.value;
+let target = parseInt(targetNum.value);
 
 var keyCount = 0;
 var num;
@@ -123,9 +141,7 @@ async function createDiv() {
     element.style.animation = 'animate 1s 1';
     blockContainer.appendChild(element);
     element.className = 'array-element';
-
     arrayElements.push(element);
-
     await sleep(50);
   }
 
@@ -133,8 +149,8 @@ async function createDiv() {
 }
 
 binarySearch.addEventListener('click', () => {
-  let target = parseInt(targetNum.value);
   disabledLinear();
+  let target = parseInt(targetNum.value);
   searching(0, array.length - 1, target);
 });
 
@@ -148,6 +164,8 @@ function sleep(ms) {
 async function searching(left, right, target) {
   let found = false;
 
+  console.log(delay);
+
   console.log('right', right);
   console.log(target);
   while (left <= right) {
@@ -155,7 +173,6 @@ async function searching(left, right, target) {
     let midElement = array[mid];
     let temp;
     let tempOne;
-    console.log('index and value ', mid, midElement);
     const midElementDiv = arrayElements[mid];
     const midValue = parseInt(midElementDiv.innerHTML);
     const firstElement = arrayElements[left];
@@ -164,10 +181,9 @@ async function searching(left, right, target) {
     firstElement.classList.add('low');
     lastElement.classList.add('high');
 
-    await sleep(1000); // Delay for animation
-
+    await waitforme(delay);
     if (midValue === target) {
-      operation.innerHTML = `${target}` + ' found at' + ` ${mid}`;
+      operation.innerHTML = `${target}` + ' found at' + ` ${mid + 1}`;
       midElementDiv.classList.add('found');
       found = true;
       break;
@@ -187,8 +203,7 @@ async function searching(left, right, target) {
       // removeElements(right + 1, tempOne);
     }
     midElementDiv.classList.remove('mid');
-    await sleep(500); // Delay for animation
-
+    await waitforme(delay);
     if (!found) {
       operation.innerHTML = `${target} ` + 'not found';
 
@@ -197,7 +212,9 @@ async function searching(left, right, target) {
       } else if (midElement > target) {
         operation.innerHTML = `${midElement} > ` + `${target}`;
       }
-      await sleep(1000);
+      await waitforme(delay);
+    } else {
+      console.log('not found');
     }
   }
 }
