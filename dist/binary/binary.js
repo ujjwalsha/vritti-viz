@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 var blockContainer = document.querySelector('.blockContainer');
 const backBtn = document.querySelector('.backbtn');
@@ -17,6 +17,7 @@ const speedController = document.querySelector('#input');
 const showData = document.querySelector('.result');
 
 let delay = 1000;
+var block = blockContainer.childNodes;
 
 function waitforme(millisec) {
   return new Promise(resolve => {
@@ -31,15 +32,12 @@ speedController.addEventListener('input', () => {
   delay = 500 - parseInt(speedController.value);
 });
 
-console.log(delay);
-
 backBtn.addEventListener('click', () => {
   window.history.back();
   console.log('hi');
 });
 
-refresh.classList.add('hidden');
-randomDisplay.classList.add('hidden');
+userDisplay.classList.add('hidden');
 
 refresh.addEventListener('click', () => {
   reload.classList.toggle('rotate');
@@ -47,6 +45,8 @@ refresh.addEventListener('click', () => {
   inputField.forEach(e => {
     e.value = '';
   });
+
+  location.reload(true);
 
   blockContainer.innerHTML = '';
   operation.innerHTML = 'Operational performed';
@@ -94,8 +94,14 @@ function animate() {
   });
 }
 
-function disabledbtn() {
+function disabledBinary() {
   binarySearch.disabled = true;
+  binarySearch.style.cursor = 'not-allowed';
+}
+
+function enabledBinary() {
+  binarySearch.disabled = false;
+  binarySearch.style.cursor = 'default';
 }
 
 function sleep(ms) {
@@ -115,17 +121,10 @@ function generatingArray() {
   let lower = parseInt(lowerNum.value);
   let upper = parseInt(upperNum.value);
 
-  console.log('lower and upper ', lower, upper);
-
-  // let value = Number();
   for (let i = lower; i <= upper; i++) {
     let value = randomNumber(lower, upper);
     array.push(value);
   }
-
-  //sorted array
-  array.sort((a, b) => a - b);
-  console.log(array);
 }
 
 async function createDiv() {
@@ -144,14 +143,19 @@ async function createDiv() {
     arrayElements.push(element);
     await sleep(50);
   }
-
-  console.log(blockContainer.childNodes);
 }
 
-binarySearch.addEventListener('click', () => {
+binarySearch.addEventListener('click', async () => {
   disabledLinear();
+  let block = blockContainer.childNodes;
+  array.sort((a, b) => a - b);
+  for (let i = 0; i < array.length; i++) {
+    block[i].textContent = array[i];
+  }
   let target = parseInt(targetNum.value);
-  searching(0, array.length - 1, target);
+  await waitforme(delay);
+  await searching(0, array.length - 1, target);
+  enabledLinear();
 });
 
 //searching in an array
@@ -164,10 +168,6 @@ function sleep(ms) {
 async function searching(left, right, target) {
   let found = false;
 
-  console.log(delay);
-
-  console.log('right', right);
-  console.log(target);
   while (left <= right) {
     let mid = Math.floor((left + right) / 2);
     let midElement = array[mid];
@@ -185,6 +185,8 @@ async function searching(left, right, target) {
     if (midValue === target) {
       operation.innerHTML = `${target}` + ' found at' + ` ${mid + 1}`;
       midElementDiv.classList.add('found');
+      document.querySelector('.time-complexity-random').innerHTML =
+        'Time Complexity:- O(logn)';
       found = true;
       break;
     } else if (target > midValue) {
@@ -205,16 +207,13 @@ async function searching(left, right, target) {
     midElementDiv.classList.remove('mid');
     await waitforme(delay);
     if (!found) {
-      operation.innerHTML = `${target} ` + 'not found';
-
       if (midElement < target) {
         operation.innerHTML = `${midElement} < ` + `${target}`;
       } else if (midElement > target) {
         operation.innerHTML = `${midElement} > ` + `${target}`;
       }
       await waitforme(delay);
-    } else {
-      console.log('not found');
     }
+    operation.innerHTML = `${target} ` + 'not found';
   }
 }
