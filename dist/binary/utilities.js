@@ -43,7 +43,7 @@ function targetFound(index, child) {
   child[index].classList.add('found');
 }
 
-function removeElementsBefore(index, right) {
+function removeElementsBefore(arrayElements, index, right) {
   for (let i = 0; i < index; i++) {
     arrayElements[i].remove();
   }
@@ -51,7 +51,7 @@ function removeElementsBefore(index, right) {
 }
 
 // Function to remove elements after the given index
-function removeElementsAfter(index, left) {
+function removeElementsAfter(arrayElements, index, left) {
   for (let i = arrayElements.length - 1; i > index; i--) {
     arrayElements[i].remove();
   }

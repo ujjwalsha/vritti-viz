@@ -11,6 +11,7 @@ const userDisplay = document.querySelector('.user-input-display');
 const userValue = document.querySelector('.user-input');
 const blocksContainer = document.querySelector('.extra-block-container');
 const userTarget = document.querySelector('.user-target');
+const activeOperation = document.querySelector('.active');
 
 userDisplay.classList.add('hidden');
 
@@ -41,6 +42,12 @@ randomNum.addEventListener('click', () => {
   randomDisplay.classList.remove('hidden');
   refresh.classList.remove('hidden');
   userDisplay.classList.add('hidden');
+});
+
+userInput.addEventListener('click', () => {
+  randomDisplay.classList.add('hidden');
+  enabledFunction();
+  userDisplay.classList.remove('hidden');
 });
 
 //for shortcut key
@@ -81,6 +88,8 @@ linearSearch.addEventListener('click', async () => {
   enabledBinary();
 });
 
+let userArrayElement = [];
+
 document.querySelector('.check').addEventListener('click', () => {
   blocksContainer.innerHTML = '';
   let data = userValue.value;
@@ -97,13 +106,8 @@ document.querySelector('.check').addEventListener('click', () => {
     block.style.transition = 'all 1s ease-in-out';
     block.style.animation = 'animate 1s 1';
     blocksContainer.appendChild(block);
+    userArrayElement.push(block);
   }
-});
-
-userInput.addEventListener('click', () => {
-  randomDisplay.classList.add('hidden');
-  enabledFunction();
-  userDisplay.classList.remove('hidden');
 });
 
 async function performLinearSearch(child, usertarget) {
@@ -116,13 +120,21 @@ async function performLinearSearch(child, usertarget) {
   for (let i = 0; i < n; i++) {
     child[i].classList.add('low');
     let block = child[i];
-    operation.innerHTML = block.innerHTML + ` !== ${usertarget}`;
+    if (userDisplay.classList.contains('hidden')) {
+      operation.innerHTML = block.innerHTML + ` !== ${usertarget}`;
+    } else {
+      userOperation.innerHTML = block.innerHTML + ` !== ${usertarget}`;
+    }
     block.style.transition = 'all 1s ';
     block.style.animation = 'animateitem 1s 1';
     if (child[i].innerHTML === usertarget) {
       child[i].classList.add('high');
       child[i].classList.remove('low');
-      operation.innerHTML = block.innerHTML + ` == ${usertarget}`;
+      if (userDisplay.classList.contains('hidden')) {
+        operation.innerHTML = block.innerHTML + ` == ${usertarget}`;
+      } else {
+        userOperation.innerHTML = block.innerHTML + ` == ${usertarget}`;
+      }
       console.log('element is found');
       block.style.transition = 'all 1s ';
       block.style.animation = 'animateitem 1s 1';

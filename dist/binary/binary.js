@@ -8,6 +8,7 @@ const lowerNum = document.querySelector('.lower');
 let targetNum = document.querySelector('.target');
 const randomDisplay = document.querySelector('.randomDisplay');
 const operation = document.querySelector('.operation');
+const userOperation = document.querySelector('.user-operation');
 const reload = document.querySelector('.fa-rotate-right');
 const binarySearch = document.querySelector('.binarysearch');
 const refresh = document.querySelector('.reload');
@@ -145,6 +146,18 @@ async function createDiv() {
   }
 }
 
+var userTemp = [];
+
+function sortUserElement() {
+  let data = userValue.value;
+  userTemp = data.split(',');
+  userTemp.sort((a, b) => a - b);
+
+  for (let i = 0; i < userTemp.length; i++) {
+    childOne[i].textContent = userTemp[i];
+  }
+}
+
 binarySearch.addEventListener('click', async () => {
   disabledLinear();
   let block = blockContainer.childNodes;
@@ -153,8 +166,17 @@ binarySearch.addEventListener('click', async () => {
     block[i].textContent = array[i];
   }
   let target = parseInt(targetNum.value);
-  await waitforme(delay);
-  await searching(0, array.length - 1, target);
+  var value = parseInt(userTarget.value);
+
+  // await waitforme(delay);
+  if (randomDisplay.classList.contains('hidden')) {
+    sortUserElement();
+    await waitforme(delay);
+    await searching(userArrayElement, value);
+  } else {
+    await searching(arrayElements, target);
+  }
+
   enabledLinear();
 });
 
@@ -165,8 +187,10 @@ function sleep(ms) {
 }
 
 // Function to perform binary search
-async function searching(left, right, target) {
+async function searching(arrayElements, target) {
   let found = false;
+  let left = 0;
+  let right = arrayElements.length - 1;
 
   while (left <= right) {
     let mid = Math.floor((left + right) / 2);
@@ -183,23 +207,35 @@ async function searching(left, right, target) {
 
     await waitforme(delay);
     if (midValue === target) {
-      operation.innerHTML = `${target}` + ' found at' + ` ${mid + 1}`;
+      if (randomDisplay.classList.contains('hidden')) {
+        userOperation.innerHTML = `${target}` + ' found at' + ` ${mid + 1}`;
+      } else {
+        operation.innerHTML = `${target}` + ' found at' + ` ${mid + 1}`;
+      }
       midElementDiv.classList.add('found');
-      document.querySelector('.time-complexity-random').innerHTML =
-        'Time Complexity:- O(logn)';
+      firstElement.classList.remove('low');
+
+      if (randomDisplay.classList.contains('hidden')) {
+        document.querySelector('.time-complexity').innerHTML =
+          'Time Complexity:- O(logn)';
+      } else {
+        document.querySelector('.time-complexity-random').innerHTML =
+          'Time Complexity:- O(logn)';
+      }
+
       found = true;
       break;
     } else if (target > midValue) {
       temp = left;
       left = mid + 1;
 
-      removeElementsBefore(left, right);
+      removeElementsBefore(arrayElements, left, right);
       // removeElements(temp, left - 1);
     } else {
       tempOne = right;
       right = mid - 1;
       //created by ujjwal kumar
-      removeElementsAfter(right, left);
+      removeElementsAfter(arrayElements, right, left);
 
       //created by abhishek singh
       // removeElements(right + 1, tempOne);
@@ -207,13 +243,20 @@ async function searching(left, right, target) {
     midElementDiv.classList.remove('mid');
     await waitforme(delay);
     if (!found) {
-      if (midElement < target) {
+      if (randomDisplay.classList.contains('hidden') && midElement < target) {
+        console.log('hello ujjwal');
+        userOperation.innerHTML = `${midElement} < ` + `${target}`;
+      } else {
         operation.innerHTML = `${midElement} < ` + `${target}`;
-      } else if (midElement > target) {
+      }
+    } else {
+      if (randomDisplay.classList.contains('hidden') && midElement > target) {
+        userOperation.innerHTML = `${midElement} > ` + `${target}`;
+      } else {
         operation.innerHTML = `${midElement} > ` + `${target}`;
       }
-      await waitforme(delay);
     }
+    await waitforme(delay);
     operation.innerHTML = `${target} ` + 'not found';
   }
 }

@@ -612,6 +612,14 @@ video {
   margin: auto;
 }
 
+.m-6 {
+  margin: 1.5rem;
+}
+
+.m-8 {
+  margin: 2rem;
+}
+
 .mt-10 {
   margin-top: 2.5rem;
 }
