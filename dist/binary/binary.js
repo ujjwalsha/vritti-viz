@@ -38,7 +38,7 @@ backBtn.addEventListener('click', () => {
   console.log('hi');
 });
 
-userDisplay.classList.add('hidden');
+// userDisplay.classList.add('hidden');
 
 refresh.addEventListener('click', () => {
   reload.classList.toggle('rotate');
@@ -47,7 +47,13 @@ refresh.addEventListener('click', () => {
     e.value = '';
   });
 
-  location.reload(true);
+  if (randomDisplay.classList.contains('hidden')) {
+    console.log('hello');
+    location.reload(true);
+    userDisplay.classList.add('hidden');
+  } else {
+    location.reload(true);
+  }
 
   blockContainer.innerHTML = '';
   operation.innerHTML = 'Operational performed';
@@ -242,21 +248,27 @@ async function searching(arrayElements, target) {
     }
     midElementDiv.classList.remove('mid');
     await waitforme(delay);
+
     if (!found) {
       if (randomDisplay.classList.contains('hidden') && midElement < target) {
         console.log('hello ujjwal');
-        userOperation.innerHTML = `${midElement} < ` + `${target}`;
+        userOperation.textContent = `${midElement} < ` + `${target}`;
       } else {
+        console.log('hello ujjwal two');
         operation.innerHTML = `${midElement} < ` + `${target}`;
       }
     } else {
       if (randomDisplay.classList.contains('hidden') && midElement > target) {
-        userOperation.innerHTML = `${midElement} > ` + `${target}`;
+        userOperation.textContent = `${midElement} > ` + `${target}`;
       } else {
         operation.innerHTML = `${midElement} > ` + `${target}`;
       }
     }
     await waitforme(delay);
-    operation.innerHTML = `${target} ` + 'not found';
+    if (randomDisplay.classList.contains('hidden')) {
+      userOperation.innerHTML = `${target} ` + 'not found';
+    } else {
+      operation.innerHTML = `${target} ` + 'not found';
+    }
   }
 }

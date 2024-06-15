@@ -11,9 +11,18 @@ const userDisplay = document.querySelector('.user-input-display');
 const userValue = document.querySelector('.user-input');
 const blocksContainer = document.querySelector('.extra-block-container');
 const userTarget = document.querySelector('.user-target');
-const activeOperation = document.querySelector('.active');
 
-userDisplay.classList.add('hidden');
+function hideDisplay() {
+  userDisplay.classList.add('hidden');
+}
+
+hideDisplay();
+
+userValue.addEventListener('input', e => {
+  if (e.data === 'a') {
+    e.preventDefault();
+  }
+});
 
 function removePrevious(s, e, mid) {
   let n = blockContainer.childNodes.length;
@@ -130,6 +139,7 @@ async function performLinearSearch(child, usertarget) {
     if (child[i].innerHTML === usertarget) {
       child[i].classList.add('high');
       child[i].classList.remove('low');
+
       if (userDisplay.classList.contains('hidden')) {
         operation.innerHTML = block.innerHTML + ` == ${usertarget}`;
       } else {
